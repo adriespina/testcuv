@@ -5,6 +5,8 @@ namespace CuvooApi.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using CuvooApi.Models;
+    using CuvooApi.Tools;
+    using System.Data.Entity.Spatial;
 
     internal sealed class Configuration : DbMigrationsConfiguration<CuvooApi.Models.CuvooApiContext>
     {
@@ -21,11 +23,21 @@ namespace CuvooApi.Migrations
 
             //Inicializo un dispositivo
             context.Devices.AddOrUpdate(x => x.Id,
-                new Device() { Id = 0, Nombre = "Cuvoo de Adrian", UsuarioId = 1, FechaAlta = DateTime.Now.AddMonths(-1).AddDays(-1), FechaValidez = DateTime.Now.AddYears(1).AddMonths(-1).AddDays(-1), Bateria=90 });
+                new Device() { Id = 1, Nombre = "Cuvoo de Adrian", UsuarioId = 1, FechaAlta = DateTime.Now.AddMonths(-1).AddDays(-1), FechaValidez = DateTime.Now.AddYears(1).AddMonths(-1).AddDays(-1), Bateria = 90, Configuracion = Configuracion.DiezMin, Perfil = Perfil.Coche, Estado = Estado.OK });
 
-            //Inicializo unas lecturas del sensor
-            context.Devices.AddOrUpdate(x => x.Id,
-               new Device() { Id = 0, Nombre = "Cuvoo de Adrian", UsuarioId = 1, FechaAlta = DateTime.Now.AddMonths(-1).AddDays(-1), FechaValidez = DateTime.Now.AddYears(1).AddMonths(-1).AddDays(-1), Bateria = 90 });
+            //Inicializo un  sensor
+            context.Sensors.AddOrUpdate(x => x.Id,
+               new Sensor() { Id = 1, TipoSensor= TipoSensor.Posicion, DeviceId=1 });
+
+            //Inicializo unas Medidas
+            context.Medidas.AddOrUpdate(x => x.Id,
+                new Medidas() { Id=1, HoraMsg=DateTime.Now.AddHours(-1), ValorMsgDouble=29101980, ValorMsgPosition=Tools.CreatePoint(43.539199,-5.650143), SensorId=1, ValorMsgString="mi casa gijon" },
+                new Medidas() { Id = 2, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(1), ValorMsgDouble = 29101981, ValorMsgPosition = Tools.CreatePoint(43.541108, -6.720897), SensorId = 1, ValorMsgString = "mi casa navia" },
+                new Medidas() { Id = 3, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(2), ValorMsgDouble = 29101982, ValorMsgPosition = Tools.CreatePoint(43.552441, -5.912780), SensorId = 1, ValorMsgString = "cdt" },
+                new Medidas() { Id = 4, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(3), ValorMsgDouble = 29101983, ValorMsgPosition = Tools.CreatePoint(43.559716, -6.676070), SensorId = 1, ValorMsgString = "frejulfe" }              
+                
+                );
+
         }
     }
 }
