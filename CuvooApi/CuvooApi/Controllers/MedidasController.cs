@@ -21,7 +21,7 @@ namespace CuvooApi.Controllers
 
         // GET: api/Medidas
         /// <summary>
-        /// devulve todas las medidas de un 
+        /// devulve todas las 50 ultimas medidas de un sensor
         /// </summary>
         /// <returns></returns>
         [Route("")]
@@ -29,16 +29,17 @@ namespace CuvooApi.Controllers
         {
 
             var medidas = from m in db.Medidas
-                          join s in db.Sensors on m.SensorId equals s.Id
-                          join d in db.Devices on s.DeviceId equals d.Id
-                          select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo= d.Nombre, Hexadecimal=m.ValorMsgHex };
-                         
+                           join s in db.Sensors on m.SensorId equals s.Id
+                           join d in db.Devices on s.DeviceId equals d.Id
+                           select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo = d.Nombre, Hexadecimal = m.ValorMsgHex };
+
+            if (medidas.Count() > 50) medidas=medidas.Take(50);
 
             return medidas;
         }
 
         // GET: api/Medidas/5
-        //devulve todas las medidas de un dispositivo
+        //devulve las ultimas 50 medidas de un dispositivo
         [ResponseType(typeof(MedidasPosicionDTO))]
         public async Task<IHttpActionResult> GetMedidas(int id)
         {
@@ -46,14 +47,15 @@ namespace CuvooApi.Controllers
                                  join s in db.Sensors on m.SensorId equals s.Id
                                  join d in db.Devices on s.DeviceId equals d.Id
                                  where d.Id==id
-                                 select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo = d.Nombre, Hexadecimal = m.ValorMsgHex }).FirstOrDefaultAsync();
+                                 select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo = d.Nombre, Hexadecimal = m.ValorMsgHex }).ToListAsync();
                                 
             if (medidas == null)
             {
                 return NotFound();
             }
 
-            return Ok(medidas);
+            if (medidas.Count() > 50) return Ok(medidas.Take(50));
+            else return Ok(medidas);
         }
 
         //// PUT: api/Medidas/5
