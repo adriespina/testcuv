@@ -11,16 +11,14 @@ namespace CuvooApi.Models
         public DateTime HoraMsg { get; set; }
         public double ValorMsgDouble { get; set; }
         public string ValorMsgString { get; set; }
+        public string ValorMsgHex { get; set; }
         public System.Data.Entity.Spatial.DbGeography ValorMsgPosition { get; set; }
 
         // Foreign Key
-        public int SigFoxId { get; set; }
-        // Navigation property
-        public virtual Sigfox Sigfox { get; set; }
+        public int SigFoxId { get; set; }      
 
         // Foreign Key
         public int SensorId { get; set; }
-        // Navigation property
-        public virtual Sensor Sensor { get; set; }
+       
     }
 }

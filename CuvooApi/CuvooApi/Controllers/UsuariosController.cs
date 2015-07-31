@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CuvooApi.Models;
+using CuvooApi.Models.DTO;
+using System.Linq.Expressions;
 
 namespace CuvooApi.Controllers
 {
@@ -17,17 +19,25 @@ namespace CuvooApi.Controllers
     {
         private CuvooApiContext db = new CuvooApiContext();
 
+        // Typed lambda expression for Select() method. 
+        private static readonly Expression<Func<Usuario, UsuarioDTO>> AsUsuarioDto =
+            x => new UsuarioDTO
+            {
+                Nombre = x.Nombre,
+                Apellidos = x.Apellidos,
+                Email = x.Email
+            };
         // GET: api/Usuarios
-        public IQueryable<Usuario> GetUsuarios()
+        public IQueryable<UsuarioDTO> GetUsuarios()
         {
-            return db.Usuarios;
+            return db.Usuarios.Select(AsUsuarioDto);
         }
 
         // GET: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
+        [ResponseType(typeof(UsuarioDTO))]
         public async Task<IHttpActionResult> GetUsuario(int id)
         {
-            Usuario usuario = await db.Usuarios.FindAsync(id);
+            UsuarioDTO usuario = await db.Usuarios.Where(b => b.Id == id).Select(AsUsuarioDto).SingleOrDefaultAsync();
             if (usuario == null)
             {
                 return NotFound();
@@ -36,71 +46,71 @@ namespace CuvooApi.Controllers
             return Ok(usuario);
         }
 
-        // PUT: api/Usuarios/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUsuario(int id, Usuario usuario)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Usuarios/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutUsuario(int id, Usuario usuario)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != usuario.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != usuario.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(usuario).State = EntityState.Modified;
+        //    db.Entry(usuario).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UsuarioExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!UsuarioExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        // POST: api/Usuarios
-        [ResponseType(typeof(Usuario))]
-        public async Task<IHttpActionResult> PostUsuario(Usuario usuario)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// POST: api/Usuarios
+        //[ResponseType(typeof(Usuario))]
+        //public async Task<IHttpActionResult> PostUsuario(Usuario usuario)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            db.Usuarios.Add(usuario);
-            await db.SaveChangesAsync();
+        //    db.Usuarios.Add(usuario);
+        //    await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = usuario.Id }, usuario);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = usuario.Id }, usuario);
+        //}
 
-        // DELETE: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
-        public async Task<IHttpActionResult> DeleteUsuario(int id)
-        {
-            Usuario usuario = await db.Usuarios.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Usuarios/5
+        //[ResponseType(typeof(Usuario))]
+        //public async Task<IHttpActionResult> DeleteUsuario(int id)
+        //{
+        //    Usuario usuario = await db.Usuarios.FindAsync(id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Usuarios.Remove(usuario);
-            await db.SaveChangesAsync();
+        //    db.Usuarios.Remove(usuario);
+        //    await db.SaveChangesAsync();
 
-            return Ok(usuario);
-        }
+        //    return Ok(usuario);
+        //}
 
         protected override void Dispose(bool disposing)
         {

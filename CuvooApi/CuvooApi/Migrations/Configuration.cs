@@ -31,12 +31,16 @@ namespace CuvooApi.Migrations
 
             //Inicializo unas Medidas
             context.Medidas.AddOrUpdate(x => x.Id,
-                new Medidas() { Id=1, HoraMsg=DateTime.Now.AddHours(-1), ValorMsgDouble=29101980, ValorMsgPosition=Tools.CreatePoint(43.539199,-5.650143), SensorId=1, ValorMsgString="mi casa gijon" },
-                new Medidas() { Id = 2, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(1), ValorMsgDouble = 29101981, ValorMsgPosition = Tools.CreatePoint(43.541108, -6.720897), SensorId = 1, ValorMsgString = "mi casa navia" },
-                new Medidas() { Id = 3, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(2), ValorMsgDouble = 29101982, ValorMsgPosition = Tools.CreatePoint(43.552441, -5.912780), SensorId = 1, ValorMsgString = "cdt" },
-                new Medidas() { Id = 4, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(3), ValorMsgDouble = 29101983, ValorMsgPosition = Tools.CreatePoint(43.559716, -6.676070), SensorId = 1, ValorMsgString = "frejulfe" }              
+                new Medidas() { Id = 1, SigFoxId = 1, HoraMsg = DateTime.Now.AddHours(-1), ValorMsgDouble = 29101980, ValorMsgHex = "a389b4dd", ValorMsgPosition = Tools.CreatePoint(43.539199, -5.650143), SensorId = 1, ValorMsgString = "mi casa gijon" },
+                new Medidas() { Id = 2, SigFoxId = 1, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(1), ValorMsgHex="a389b4dd", ValorMsgDouble = 29101981, ValorMsgPosition = Tools.CreatePoint(43.541108, -6.720897), SensorId = 1, ValorMsgString = "mi casa navia" },
+                new Medidas() { Id = 3, SigFoxId = 1, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(2), ValorMsgHex = "a389b4dd", ValorMsgDouble = 29101982, ValorMsgPosition = Tools.CreatePoint(43.552441, -5.912780), SensorId = 1, ValorMsgString = "cdt" },
+                new Medidas() { Id = 4, SigFoxId = 1, HoraMsg = DateTime.Now.AddHours(-1).AddMinutes(3), ValorMsgHex = "a389b4dd", ValorMsgDouble = 29101983, ValorMsgPosition = Tools.CreatePoint(43.559716, -6.676070), SensorId = 1, ValorMsgString = "frejulfe" }              
                 
                 );
+
+            //Inicializo un  Sigfox
+            context.Sigfoxes.AddOrUpdate(x => x.Id,
+               new Sigfox() { Id = 1 });
 
         }
     }

@@ -17,6 +17,8 @@ namespace CuvooApi.Models
     
         public CuvooApiContext() : base("name=CuvooApiContext")
         {
+            // New code:
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         public System.Data.Entity.DbSet<CuvooApi.Models.Device> Devices { get; set; }

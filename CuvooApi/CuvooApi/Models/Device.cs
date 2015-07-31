@@ -22,10 +22,9 @@ namespace CuvooApi.Models
 
         // Foreign Key
         public int UsuarioId { get; set; }
-        // Navigation property
-        public virtual  Usuario Usuario { get; set; }     
-        //Collection navigation property
-        public virtual  IList<Sensor> Sensors { get; set; }
+         
+        ////Collection navigation property
+        //public  IList<Sensor> Sensors { get; set; }
         
     }
 }

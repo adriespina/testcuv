@@ -10,24 +10,38 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CuvooApi.Models;
+using CuvooApi.Models.DTO;
 
 namespace CuvooApi.Controllers
 {
+    [RoutePrefix("api/Medidas")]
     public class MedidasController : ApiController
     {
         private CuvooApiContext db = new CuvooApiContext();
 
         // GET: api/Medidas
-        public IQueryable<Medidas> GetMedidas()
+        [Route("")]
+        public IQueryable<MedidasPosicionDTO> GetMedidas()
         {
-            return db.Medidas;
+
+            var medidas = from m in db.Medidas
+                          join s in db.Sensors on m.SensorId equals s.Id
+                          join d in db.Devices on s.DeviceId equals d.Id
+                          select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo= d.Nombre, Hexadecimal=m.ValorMsgHex };
+                         
+
+            return medidas;
         }
 
         // GET: api/Medidas/5
-        [ResponseType(typeof(Medidas))]
+        [ResponseType(typeof(MedidasPosicionDTO))]
         public async Task<IHttpActionResult> GetMedidas(int id)
         {
-            Medidas medidas = await db.Medidas.FindAsync(id);
+            var medidas = await (from m in db.Medidas
+                                 join s in db.Sensors on m.SensorId equals s.Id
+                                 where s.Id==id
+                                 select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo = s.TipoSensor.ToString(), Hexadecimal = m.ValorMsgHex }).FirstOrDefaultAsync();
+                                
             if (medidas == null)
             {
                 return NotFound();
