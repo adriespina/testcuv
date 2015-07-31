@@ -15,13 +15,12 @@ namespace CuvooApi.Models
         public DateTime FechaValidez { get; set; }
         public int Bateria { get; set; }
         public string Genre { get; set; }
+        public Estado Estado { get; set; }
 
         // Foreign Key
         public int UsuarioId { get; set; }
         // Navigation property
-        public virtual  Usuario Usuario { get; set; }
-        
-        public Estado Estado { get; set; }
+        public virtual  Usuario Usuario { get; set; }     
         //Collection navigation property
         public virtual  IList<Sensor> Sensors { get; set; }
         

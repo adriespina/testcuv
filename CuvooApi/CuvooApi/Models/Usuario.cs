@@ -14,6 +14,6 @@ namespace CuvooApi.Models
         public string Email { get; set; }
         public string Contraseña { get; set; }
         public DateTime UltimoAcceso { get; set; }
-        public Bitmap Imagen { get; set; }
+       
     }
 }
