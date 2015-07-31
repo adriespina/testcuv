@@ -24,6 +24,11 @@ namespace CuvooApi
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            // New code:
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                      "~/Scripts/knockout-{version}.js",
+                      "~/Scripts/app.js"));
+
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = true;

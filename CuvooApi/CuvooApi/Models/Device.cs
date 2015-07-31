@@ -13,8 +13,7 @@ namespace CuvooApi.Models
         public string Nombre { get; set; }
         public DateTime FechaAlta { get; set; }
         public DateTime FechaValidez { get; set; }
-        public int Bateria { get; set; }
-        public string Genre { get; set; }
+        public int Bateria { get; set; }    
         public string URLCallback { get; set; }
         public Perfil Perfil { get; set; }
         public Configuracion Configuracion { get; set; }  

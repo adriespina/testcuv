@@ -13,15 +13,17 @@ using CuvooApi.Models;
 
 namespace CuvooApi.Controllers
 {
+    [RoutePrefix("api/Devices")]
     public class DevicesController : ApiController
     {
         private CuvooApiContext db = new CuvooApiContext();
 
         // GET: api/Devices
-        //public IQueryable<Device> GetDevices()
-        //{
-        //    return db.Devices;
-        //}
+        [Route("")]
+        public IQueryable<Device> GetDevices()
+        {
+            return db.Devices;
+        }
 
         //// GET: api/Devices/5
         //[ResponseType(typeof(Device))]
