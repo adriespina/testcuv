@@ -26,6 +26,8 @@ namespace CuvooApi.Models
         public System.Data.Entity.DbSet<CuvooApi.Models.Sensor> Sensors { get; set; }
 
         public System.Data.Entity.DbSet<CuvooApi.Models.Sigfox> Sigfoxes { get; set; }
+
+        public System.Data.Entity.DbSet<CuvooApi.Models.Medidas> Medidas { get; set; }
     
     }
 }

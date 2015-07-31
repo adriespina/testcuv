@@ -15,6 +15,9 @@ namespace CuvooApi.Models
         public DateTime FechaValidez { get; set; }
         public int Bateria { get; set; }
         public string Genre { get; set; }
+        public string URLCallback { get; set; }
+        public Perfil Perfil { get; set; }
+        public Configuracion Configuracion { get; set; }  
         public Estado Estado { get; set; }
 
         // Foreign Key
