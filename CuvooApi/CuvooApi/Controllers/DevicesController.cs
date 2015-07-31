@@ -18,89 +18,89 @@ namespace CuvooApi.Controllers
         private CuvooApiContext db = new CuvooApiContext();
 
         // GET: api/Devices
-        public IQueryable<Device> GetDevices()
-        {
-            return db.Devices;
-        }
+        //public IQueryable<Device> GetDevices()
+        //{
+        //    return db.Devices;
+        //}
 
-        // GET: api/Devices/5
-        [ResponseType(typeof(Device))]
-        public async Task<IHttpActionResult> GetDevice(int id)
-        {
-            Device device = await db.Devices.FindAsync(id);
-            if (device == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Devices/5
+        //[ResponseType(typeof(Device))]
+        //public async Task<IHttpActionResult> GetDevice(int id)
+        //{
+        //    Device device = await db.Devices.FindAsync(id);
+        //    if (device == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(device);
-        }
+        //    return Ok(device);
+        //}
 
-        // PUT: api/Devices/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutDevice(int id, Device device)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Devices/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutDevice(int id, Device device)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != device.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != device.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(device).State = EntityState.Modified;
+        //    db.Entry(device).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DeviceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!DeviceExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        // POST: api/Devices
-        [ResponseType(typeof(Device))]
-        public async Task<IHttpActionResult> PostDevice(Device device)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// POST: api/Devices
+        //[ResponseType(typeof(Device))]
+        //public async Task<IHttpActionResult> PostDevice(Device device)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            db.Devices.Add(device);
-            await db.SaveChangesAsync();
+        //    db.Devices.Add(device);
+        //    await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = device.Id }, device);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = device.Id }, device);
+        //}
 
-        // DELETE: api/Devices/5
-        [ResponseType(typeof(Device))]
-        public async Task<IHttpActionResult> DeleteDevice(int id)
-        {
-            Device device = await db.Devices.FindAsync(id);
-            if (device == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Devices/5
+        //[ResponseType(typeof(Device))]
+        //public async Task<IHttpActionResult> DeleteDevice(int id)
+        //{
+        //    Device device = await db.Devices.FindAsync(id);
+        //    if (device == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Devices.Remove(device);
-            await db.SaveChangesAsync();
+        //    db.Devices.Remove(device);
+        //    await db.SaveChangesAsync();
 
-            return Ok(device);
-        }
+        //    return Ok(device);
+        //}
 
         protected override void Dispose(bool disposing)
         {

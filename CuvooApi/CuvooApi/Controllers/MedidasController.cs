@@ -20,6 +20,10 @@ namespace CuvooApi.Controllers
         private CuvooApiContext db = new CuvooApiContext();
 
         // GET: api/Medidas
+        /// <summary>
+        /// devulve todas las medidas de un 
+        /// </summary>
+        /// <returns></returns>
         [Route("")]
         public IQueryable<MedidasPosicionDTO> GetMedidas()
         {
@@ -34,13 +38,15 @@ namespace CuvooApi.Controllers
         }
 
         // GET: api/Medidas/5
+        //devulve todas las medidas de un dispositivo
         [ResponseType(typeof(MedidasPosicionDTO))]
         public async Task<IHttpActionResult> GetMedidas(int id)
         {
             var medidas = await (from m in db.Medidas
                                  join s in db.Sensors on m.SensorId equals s.Id
-                                 where s.Id==id
-                                 select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo = s.TipoSensor.ToString(), Hexadecimal = m.ValorMsgHex }).FirstOrDefaultAsync();
+                                 join d in db.Devices on s.DeviceId equals d.Id
+                                 where d.Id==id
+                                 select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo = d.Nombre, Hexadecimal = m.ValorMsgHex }).FirstOrDefaultAsync();
                                 
             if (medidas == null)
             {
@@ -50,71 +56,71 @@ namespace CuvooApi.Controllers
             return Ok(medidas);
         }
 
-        // PUT: api/Medidas/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutMedidas(int id, Medidas medidas)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Medidas/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutMedidas(int id, Medidas medidas)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != medidas.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != medidas.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(medidas).State = EntityState.Modified;
+        //    db.Entry(medidas).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MedidasExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!MedidasExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        // POST: api/Medidas
-        [ResponseType(typeof(Medidas))]
-        public async Task<IHttpActionResult> PostMedidas(Medidas medidas)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// POST: api/Medidas
+        //[ResponseType(typeof(Medidas))]
+        //public async Task<IHttpActionResult> PostMedidas(Medidas medidas)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            db.Medidas.Add(medidas);
-            await db.SaveChangesAsync();
+        //    db.Medidas.Add(medidas);
+        //    await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = medidas.Id }, medidas);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = medidas.Id }, medidas);
+        //}
 
-        // DELETE: api/Medidas/5
-        [ResponseType(typeof(Medidas))]
-        public async Task<IHttpActionResult> DeleteMedidas(int id)
-        {
-            Medidas medidas = await db.Medidas.FindAsync(id);
-            if (medidas == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Medidas/5
+        //[ResponseType(typeof(Medidas))]
+        //public async Task<IHttpActionResult> DeleteMedidas(int id)
+        //{
+        //    Medidas medidas = await db.Medidas.FindAsync(id);
+        //    if (medidas == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Medidas.Remove(medidas);
-            await db.SaveChangesAsync();
+        //    db.Medidas.Remove(medidas);
+        //    await db.SaveChangesAsync();
 
-            return Ok(medidas);
-        }
+        //    return Ok(medidas);
+        //}
 
         protected override void Dispose(bool disposing)
         {

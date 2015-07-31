@@ -18,89 +18,89 @@ namespace CuvooApi.Controllers
         private CuvooApiContext db = new CuvooApiContext();
 
         // GET: api/Sensors
-        public IQueryable<Sensor> GetSensors()
-        {
-            return db.Sensors;
-        }
+        //public IQueryable<Sensor> GetSensors()
+        //{
+        //    return db.Sensors;
+        //}
 
-        // GET: api/Sensors/5
-        [ResponseType(typeof(Sensor))]
-        public async Task<IHttpActionResult> GetSensor(int id)
-        {
-            Sensor sensor = await db.Sensors.FindAsync(id);
-            if (sensor == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Sensors/5
+        //[ResponseType(typeof(Sensor))]
+        //public async Task<IHttpActionResult> GetSensor(int id)
+        //{
+        //    Sensor sensor = await db.Sensors.FindAsync(id);
+        //    if (sensor == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(sensor);
-        }
+        //    return Ok(sensor);
+        //}
 
-        // PUT: api/Sensors/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSensor(int id, Sensor sensor)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Sensors/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutSensor(int id, Sensor sensor)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != sensor.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != sensor.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(sensor).State = EntityState.Modified;
+        //    db.Entry(sensor).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SensorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!SensorExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-        // POST: api/Sensors
-        [ResponseType(typeof(Sensor))]
-        public async Task<IHttpActionResult> PostSensor(Sensor sensor)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// POST: api/Sensors
+        //[ResponseType(typeof(Sensor))]
+        //public async Task<IHttpActionResult> PostSensor(Sensor sensor)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            db.Sensors.Add(sensor);
-            await db.SaveChangesAsync();
+        //    db.Sensors.Add(sensor);
+        //    await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = sensor.Id }, sensor);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = sensor.Id }, sensor);
+        //}
 
-        // DELETE: api/Sensors/5
-        [ResponseType(typeof(Sensor))]
-        public async Task<IHttpActionResult> DeleteSensor(int id)
-        {
-            Sensor sensor = await db.Sensors.FindAsync(id);
-            if (sensor == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Sensors/5
+        //[ResponseType(typeof(Sensor))]
+        //public async Task<IHttpActionResult> DeleteSensor(int id)
+        //{
+        //    Sensor sensor = await db.Sensors.FindAsync(id);
+        //    if (sensor == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Sensors.Remove(sensor);
-            await db.SaveChangesAsync();
+        //    db.Sensors.Remove(sensor);
+        //    await db.SaveChangesAsync();
 
-            return Ok(sensor);
-        }
+        //    return Ok(sensor);
+        //}
 
         protected override void Dispose(bool disposing)
         {
