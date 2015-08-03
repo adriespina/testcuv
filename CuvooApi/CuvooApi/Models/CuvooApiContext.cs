@@ -23,9 +23,7 @@ namespace CuvooApi.Models
 
         public System.Data.Entity.DbSet<CuvooApi.Models.Device> Devices { get; set; }
 
-        public System.Data.Entity.DbSet<CuvooApi.Models.Usuario> Usuarios { get; set; }
-
-        public System.Data.Entity.DbSet<CuvooApi.Models.Sensor> Sensors { get; set; }
+        public System.Data.Entity.DbSet<CuvooApi.Models.Usuario> Usuarios { get; set; }       
 
         public System.Data.Entity.DbSet<CuvooApi.Models.Sigfox> Sigfoxes { get; set; }
 

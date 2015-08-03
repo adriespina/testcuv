@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CuvooApi.Models;
+using CuvooApi.Models.DTO;
+using System.Linq.Expressions;
 
 namespace CuvooApi.Controllers
 {
@@ -18,25 +20,55 @@ namespace CuvooApi.Controllers
     {
         private CuvooApiContext db = new CuvooApiContext();
 
+        private static readonly Expression<Func<Device, DeviceDTO>> AsDeviceDto =
+            x => new DeviceDTO
+            {
+                Nombre = x.Nombre,
+                Bateria = x.Bateria,
+                Estado = x.Estado,
+                FechaAlta = x.FechaAlta,
+                FechaValidez = x.FechaValidez,
+                Perfil=x.Perfil,
+                Configuracion = x.Configuracion,
+                ID = x.Id
+            };
         // GET: api/Devices
         [Route("")]
-        public IQueryable<Device> GetDevices()
+        public IQueryable<DeviceDTO> GetDevices()
         {
-            return db.Devices;
+            return db.Devices.Select(AsDeviceDto).Take(50);
         }
 
-        //// GET: api/Devices/5
-        //[ResponseType(typeof(Device))]
-        //public async Task<IHttpActionResult> GetDevice(int id)
-        //{
-        //    Device device = await db.Devices.FindAsync(id);
-        //    if (device == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: api/Devices/5
+        /// <summary>
+        /// Devuelve los dispositivos de un usuario Dado
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(DeviceDTO))]
+        public async Task<IHttpActionResult> GetDevice(int id)
+        {
+            var devices = await (from x in db.Devices
+                                 join u in db.Usuarios on x.UsuarioId equals u.Id
+                                 where x.UsuarioId == id
+                                 select (new DeviceDTO
+                                 {
+                                     Nombre = x.Nombre,
+                                     Bateria = x.Bateria,
+                                     Estado = x.Estado,
+                                     FechaAlta = x.FechaAlta,
+                                     FechaValidez = x.FechaValidez,
+                                     Perfil = x.Perfil,
+                                     Configuracion = x.Configuracion,
+                                     ID=x.Id
+                                 })).ToListAsync();
 
-        //    return Ok(device);
-        //}
+            if (devices == null)
+            {
+                return NotFound();
+            }
+            else return Ok(devices);
+        }
 
         //// PUT: api/Devices/5
         //[ResponseType(typeof(void))]

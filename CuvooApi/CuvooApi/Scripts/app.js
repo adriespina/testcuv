@@ -2,11 +2,10 @@
     var self = this;
     self.devices = ko.observableArray();
     self.usuarios = ko.observableArray();
-    self.sensores = ko.observableArray();
     self.medidas = ko.observableArray();
     self.error = ko.observable();
 
-    var devicesUri = '/api/devices/';    
+    var devicesUri = '/api/devices/';
     var medidasUri = '/api/medidas/';
 
     function ajaxHelper(uri, method, data) {
@@ -28,15 +27,21 @@
         });
     }
 
-    function getAllMedidas() {
-        ajaxHelper(devicesUri, 'GET').done(function (data) {
-            self.devices(data);
+    self.getMedidasDispositivo = function (item) {
+        ajaxHelper(medidasUri + item.ID, 'GET').done(function (data) {
+            self.medidas(data);
         });
     }
 
+        function getAllMedidas() {
+            ajaxHelper(medidasUri, 'GET').done(function (data) {
+                self.medidas(data);
+            });
+        }
 
-    // Fetch the initial data.
-    getAllMedidas();
-};
+    
+        // Fetch the initial data.
+        getAllDevices();
+    };
 
-ko.applyBindings(new ViewModel());
+    ko.applyBindings(new ViewModel());

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CuvooApi.Models
 {
@@ -15,15 +16,15 @@ namespace CuvooApi.Models
         public DateTime FechaValidez { get; set; }
         public int Bateria { get; set; }    
         public string URLCallback { get; set; }
+        public string IdSigfox { get; set; }
         public Perfil Perfil { get; set; }
         public Configuracion Configuracion { get; set; }  
         public Estado Estado { get; set; }
 
-        // Foreign Key
+        
+        
         public int UsuarioId { get; set; }
-         
-        ////Collection navigation property
-        //public  IList<Sensor> Sensors { get; set; }
+       
         
     }
 }

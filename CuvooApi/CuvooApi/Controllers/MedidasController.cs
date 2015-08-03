@@ -28,9 +28,8 @@ namespace CuvooApi.Controllers
         public IQueryable<MedidasPosicionDTO> GetMedidas()
         {
 
-            var medidas = from m in db.Medidas
-                           join s in db.Sensors on m.SensorId equals s.Id
-                           join d in db.Devices on s.DeviceId equals d.Id
+            var medidas = from m in db.Medidas                           
+                           join d in db.Devices on m.DeviceId equals d.Id
                            select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo = d.Nombre, Hexadecimal = m.ValorMsgHex };
 
             if (medidas.Count() > 50) medidas=medidas.Take(50);
@@ -43,9 +42,8 @@ namespace CuvooApi.Controllers
         [ResponseType(typeof(MedidasPosicionDTO))]
         public async Task<IHttpActionResult> GetMedidas(int id)
         {
-            var medidas = await (from m in db.Medidas
-                                 join s in db.Sensors on m.SensorId equals s.Id
-                                 join d in db.Devices on s.DeviceId equals d.Id
+            var medidas = await (from m in db.Medidas                                 
+                                 join d in db.Devices on m.DeviceId equals d.Id
                                  where d.Id==id
                                  select new MedidasPosicionDTO { HoraMsg = m.HoraMsg, Latitud = (double)m.ValorMsgPosition.Latitude, Longitud = (double)m.ValorMsgPosition.Longitude, NombreDispositivo = d.Nombre, Hexadecimal = m.ValorMsgHex }).ToListAsync();
                                 

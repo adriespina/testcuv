@@ -8,5 +8,7 @@ namespace CuvooApi.Models
     public class Sigfox
     {
         public int Id { get; set; }
+        public string IdSigfox { get; set; }
+        
     }
 }

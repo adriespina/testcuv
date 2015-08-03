@@ -14,6 +14,9 @@ namespace CuvooApi.Models
         public string Email { get; set; }
         public string Contraseña { get; set; }
         public DateTime UltimoAcceso { get; set; }
+
+        //Navigation Property        
+        public IList<Device> Devices { get; set; } 
        
     }
 }

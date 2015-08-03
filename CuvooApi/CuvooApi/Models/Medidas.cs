@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,11 +15,10 @@ namespace CuvooApi.Models
         public string ValorMsgHex { get; set; }
         public System.Data.Entity.Spatial.DbGeography ValorMsgPosition { get; set; }
 
-        // Foreign Key
-        public int SigFoxId { get; set; }      
-
-        // Foreign Key
-        public int SensorId { get; set; }
+       
+        public int SigFoxId { get; set; }   
+        public int DeviceId { get; set; }
+       
        
     }
 }

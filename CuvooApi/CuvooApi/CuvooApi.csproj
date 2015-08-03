@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -200,28 +201,26 @@
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedidasController.cs" />
-    <Compile Include="Controllers\SensorsController.cs" />
     <Compile Include="Controllers\SigfoxesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507312007105_Initial.cs" />
-    <Compile Include="Migrations\201507312007105_Initial.Designer.cs">
-      <DependentUpon>201507312007105_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201508031758472_InitialCreate.cs" />
+    <Compile Include="Migrations\201508031758472_InitialCreate.Designer.cs">
+      <DependentUpon>201508031758472_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CuvooApiContext.cs" />
     <Compile Include="Models\Device.cs" />
-    <Compile Include="Models\DTO\DevicesDTO.cs" />
+    <Compile Include="Models\DTO\DeviceDTO.cs" />
     <Compile Include="Models\DTO\MedidasPosicionDTO.cs" />
     <Compile Include="Models\DTO\UsuarioDTO.cs" />
     <Compile Include="Models\enums.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Medidas.cs" />
-    <Compile Include="Models\Sensor.cs" />
     <Compile Include="Models\Sigfox.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -301,8 +300,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507312007105_Initial.resx">
-      <DependentUpon>201507312007105_Initial.cs</DependentUpon>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508031758472_InitialCreate.resx">
+      <DependentUpon>201508031758472_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

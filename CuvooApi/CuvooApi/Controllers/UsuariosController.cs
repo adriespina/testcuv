@@ -25,12 +25,15 @@ namespace CuvooApi.Controllers
             {
                 Nombre = x.Nombre,
                 Apellidos = x.Apellidos,
-                Email = x.Email
+                Email = x.Email,
+                ID=x.Id
+               
             };
+       
         // GET: api/Usuarios
         public IQueryable<UsuarioDTO> GetUsuarios()
         {
-            return db.Usuarios.Select(AsUsuarioDto);
+            return db.Usuarios.Select(AsUsuarioDto).Take(50);
         }
 
         // GET: api/Usuarios/5

@@ -11,13 +11,13 @@
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2 class="panel-title">Devices</h2>
+                <h2 class="panel-title">Dispositivos</h2>
             </div>
             <div class="panel-body">
-                <ul class="list-unstyled" data-bind="foreach: medidas">
+                <ul class="list-unstyled" data-bind="foreach: devices">
                     <li>
-                        <strong><span data-bind="text: NombreDispositivo"></span></strong>: <span data-bind="string: Hexadecimal"></span>
-                        <small><a href="#">Details</a></small>
+                        <strong><span data-bind="text: ID"></span></strong>: <span data-bind="text: Nombre"></span>
+                        <small><a href="#" data-bind="click: $parent.getMedidasDispositivo">>Obtener medidas</a></small>
                     </li>
                 </ul>
             </div>
@@ -27,9 +27,40 @@
 
     <div class="col-md-4">
         <!-- TODO: Book details -->
-    </div>
+    </div>   
+</div>
+ <!-- ko if:medidas() -->
 
-    <div class="col-md-4">
-        <!-- TODO: Add new book -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Medidas</h2>
+            </div>
+            <table class="table" >
+                @*encabezados*@
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Dispositivo</th>
+                        <th>Longitud</th>
+                        <th>Latitud</th>
+                        <th>Raw</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: medidas">
+                    <tr>
+                        <td data-bind="text: HoraMsg"></td>
+                        <td data-bind="text: NombreDispositivo"></td>
+                        <td data-bind="text: Longitud"></td>
+                        <td data-bind="text: Latitud"></td>
+                        <td data-bind="text: Hexadecimal"></td>
+                    </tr>
+                </tbody>
+
+</table>
+        </div>
     </div>
 </div>
+
+    <!-- /ko -->
