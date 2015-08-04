@@ -4,6 +4,7 @@
     self.usuarios = ko.observableArray();
     self.medidas = ko.observableArray();
     self.error = ko.observable();
+    self.datos = ko.observable();
 
     var devicesUri = '/api/devices/';
     var medidasUri = '/api/medidas/';
@@ -27,9 +28,14 @@
         });
     }
 
+    function showPosition(position) {
+       
+    }
+
     self.getMedidasDispositivo = function (item) {
         ajaxHelper(medidasUri + item.ID, 'GET').done(function (data) {
             self.medidas(data);
+            self.datos(true);           
         });
     }
 

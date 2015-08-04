@@ -157,3 +157,4 @@ $RECYCLE.BIN/
 *.mdf
 *.ldf
 CuvooApi/CuvooApi/Migrations/*
+CuvooApi/Database1/Database1.sqlproj
